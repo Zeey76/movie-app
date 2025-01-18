@@ -19,6 +19,7 @@ module.exports = {
         "light-purple-hover": "#A78BFA",
         "light-gray": "#D1D5DB",
         "gray-purple": "#6B617F",
+        "nav-dark": "#B8B5C3"
       },
     },
   },
