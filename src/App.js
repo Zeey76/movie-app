@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./App.css"; // Import your custom styles (if any)
 import Header from "./components/Header";
 import Movies from "./components/Movies";
@@ -207,9 +207,8 @@ function App() {
       setLoading(false);
     }
   };
-  const fetchMovies = async (searchQuery) => {
+  const fetchMovies = useCallback(async (searchQuery) => {
     setIsSearchActive(true);
-    const apiKey = "aec21b04";
     const response = await fetch(
       `http://www.omdbapi.com/?s=${searchQuery}&apikey=${apiKey}`
     );
@@ -219,7 +218,7 @@ function App() {
     } else {
       setMovies([]);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchDefaultMovies();
@@ -290,13 +289,21 @@ function App() {
                     <h1 className=" text-center mt-[2rem] text-2xl text-red-500">
                       "Oops! Something went wrong. Try again!"
                     </h1>
-                  ) : movies.map((movie) => movie.Type === "movie") === 0 ? (
+                  ) : isSearchActive &&
+                    movies.filter((movie) => movie.Type === "movie").length ===
+                      0 ? (
                     <h1 className="text-center mt-[2rem] text-2xl text-red-500">
                       "No movies found for your search!"
                     </h1>
-                  ) : movies.map((movie) => movie.Type === "movie") > 0 ? (
+                  ) : isSearchActive &&
+                    movies.filter((movie) => movie.Type === "movie").length >
+                      0 ? (
                     <div className="mb-8">
-                      <Movies movies={movies} />
+                      <Movies
+                        movies={movies.filter(
+                          (movie) => movie.Type === "movie"
+                        )}
+                      />
                     </div>
                   ) : (
                     <Movies
@@ -322,9 +329,21 @@ function App() {
                     <h1 className=" text-center mt-[2rem] text-2xl text-red-500">
                       "Oops! Something went wrong. Try again!"
                     </h1>
-                  ) : movies.length > 0 ? (
+                  ) : isSearchActive &&
+                    movies.filter((movie) => movie.Type === "series").length ===
+                      0 ? (
+                    <h1 className="text-center mt-[2rem] text-2xl text-red-500">
+                      "No series found for your search!"
+                    </h1>
+                  ) : isSearchActive &&
+                    movies.filter((movie) => movie.Type === "series").length >
+                      0 ? (
                     <div className="mb-8">
-                      <Movies movies={movies} />
+                      <Movies
+                        movies={movies.filter(
+                          (movie) => movie.Type === "series"
+                        )}
+                      />
                     </div>
                   ) : (
                     <Movies

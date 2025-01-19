@@ -1,5 +1,5 @@
 import { Film, Sun, Moon, Search } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function Header({
   toggleTheme,
@@ -26,13 +26,22 @@ export default function Header({
   }, [query]);
 
   // Trigger the onSearch callback when the debounced query changes
+
+  const handleSearchDenounced = useCallback(
+    async(searchQuery) => {
+      if (searchQuery !== "") {
+        await onSearch(searchQuery)
+      } else {
+        setMovies([])
+        setIsSearchActive(false)
+      }
+    },
+    [onSearch, setMovies, setIsSearchActive]
+  )
+
   useEffect(() => {
-    if (debouncedQuery !== "") {
-      onSearch(debouncedQuery);
-    } else if (debouncedQuery.trim() === "") {
-      setMovies([]);
-    }
-  }, [debouncedQuery, onSearch, setMovies]);
+    handleSearchDenounced(debouncedQuery)
+  }, [debouncedQuery, handleSearchDenounced])
 
   return (
     <div className="flex w-full items-center gap-[2rem] flex-wrap mt-[0.7rem]">
