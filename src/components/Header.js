@@ -30,10 +30,9 @@ export default function Header({
     if (debouncedQuery !== "") {
       onSearch(debouncedQuery);
     } else if (debouncedQuery.trim() === "") {
-      setIsSearchActive(false);
       setMovies([]);
     }
-  }, [debouncedQuery, onSearch, setMovies, setIsSearchActive]);
+  }, [debouncedQuery, onSearch, setMovies]);
 
   return (
     <div className="flex w-full items-center gap-[2rem] flex-wrap mt-[0.7rem]">

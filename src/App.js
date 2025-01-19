@@ -229,8 +229,6 @@ function App() {
     setIsDarkMode(!isDarkMode); // Toggle theme
   };
 
-  console.log(movies);
-
   return (
     <BrowserRouter>
       <div className={isDarkMode ? "dark" : ""}>
@@ -292,7 +290,11 @@ function App() {
                     <h1 className=" text-center mt-[2rem] text-2xl text-red-500">
                       "Oops! Something went wrong. Try again!"
                     </h1>
-                  ) : movies.length > 0 ? (
+                  ) : movies.map((movie) => movie.Type === "movie") === 0 ? (
+                    <h1 className="text-center mt-[2rem] text-2xl text-red-500">
+                      "No movies found for your search!"
+                    </h1>
+                  ) : movies.map((movie) => movie.Type === "movie") > 0 ? (
                     <div className="mb-8">
                       <Movies movies={movies} />
                     </div>
