@@ -157,6 +157,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false); // State to store error message
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isSearchActive, setIsSearchActive] = useState(false);
   const [categories, setCategories] = useState({
     Action: [],
     Romance: [],
@@ -207,6 +208,7 @@ function App() {
     }
   };
   const fetchMovies = async (searchQuery) => {
+    setIsSearchActive(true);
     const apiKey = "aec21b04";
     const response = await fetch(
       `http://www.omdbapi.com/?s=${searchQuery}&apikey=${apiKey}`
@@ -227,7 +229,7 @@ function App() {
     setIsDarkMode(!isDarkMode); // Toggle theme
   };
 
-  console.log(movies)
+  console.log(movies);
 
   return (
     <BrowserRouter>
@@ -237,6 +239,8 @@ function App() {
             isDarkMode={isDarkMode}
             toggleTheme={toggleTheme}
             onSearch={fetchMovies}
+            setMovies={setMovies}
+            setIsSearchActive={setIsSearchActive}
           />
           <NavLinks />
           <Routes>
@@ -253,10 +257,14 @@ function App() {
                     <h1 className="text-center mt-[2rem] text-2xl text-red-500">
                       "Oops! Something went wrong. Try again!"
                     </h1>
-                  ) : movies.length > 0 ? (
+                  ) : isSearchActive && movies.length > 0 ? (
                     <div className="mb-8">
                       <Movies movies={movies} />
                     </div>
+                  ) : isSearchActive && movies.length === 0 ? (
+                    <h1 className="text-center mt-[2rem] text-2xl text-red-500">
+                      "No movies found for your search!"
+                    </h1>
                   ) : (
                     Object.entries(categories).map(([genre, movies]) => (
                       <div key={genre} className="mb-8">

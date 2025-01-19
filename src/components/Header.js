@@ -1,7 +1,13 @@
 import { Film, Sun, Moon, Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-export default function Header({ toggleTheme, isDarkMode, onSearch }) {
+export default function Header({
+  toggleTheme,
+  isDarkMode,
+  onSearch,
+  setMovies,
+  setIsSearchActive,
+}) {
   const inputRef = useRef(null);
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
@@ -23,8 +29,11 @@ export default function Header({ toggleTheme, isDarkMode, onSearch }) {
   useEffect(() => {
     if (debouncedQuery !== "") {
       onSearch(debouncedQuery);
+    } else if (debouncedQuery.trim() === "") {
+      setIsSearchActive(false);
+      setMovies([]);
     }
-  }, [debouncedQuery, onSearch]);
+  }, [debouncedQuery, onSearch, setMovies, setIsSearchActive]);
 
   return (
     <div className="flex w-full items-center gap-[2rem] flex-wrap mt-[0.7rem]">
