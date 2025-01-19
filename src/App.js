@@ -207,7 +207,7 @@ function App() {
     }
   };
   const fetchMovies = async (searchQuery) => {
-    const apiKey = "your_api_key_here";
+    const apiKey = "aec21b04";
     const response = await fetch(
       `http://www.omdbapi.com/?s=${searchQuery}&apikey=${apiKey}`
     );
