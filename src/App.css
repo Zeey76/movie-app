@@ -1,27 +1,26 @@
-@media (max-width: 360px) {
-    .genres {
-        grid-template-columns: 1fr;
-    }
-}
-.movie-plot{
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: hidden;
+.movie-plot {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: hidden;
 }
 
 .text-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-   
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-    color: white;
-    padding: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: white;
+  padding: 10px;
 }
 
 .play-button {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
+@media (max-width: 360px) {
+  .genres {
+    grid-template-columns: 1fr;
+  }
+}

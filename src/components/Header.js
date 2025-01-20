@@ -21,27 +21,25 @@ export default function Header({
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedQuery(query);
-    }, 500); // Wait for 500ms after the user stops typing
+    }, 500);
     return () => clearTimeout(timer); // Clear the timeout on query change
   }, [query]);
 
-  // Trigger the onSearch callback when the debounced query changes
-
   const handleSearchDenounced = useCallback(
-    async(searchQuery) => {
+    async (searchQuery) => {
       if (searchQuery !== "") {
-        await onSearch(searchQuery)
+        await onSearch(searchQuery);
       } else {
-        setMovies([])
-        setIsSearchActive(false)
+        setMovies([]);
+        setIsSearchActive(false);
       }
     },
     [onSearch, setMovies, setIsSearchActive]
-  )
+  );
 
   useEffect(() => {
-    handleSearchDenounced(debouncedQuery)
-  }, [debouncedQuery, handleSearchDenounced])
+    handleSearchDenounced(debouncedQuery);
+  }, [debouncedQuery, handleSearchDenounced]);
 
   return (
     <div className="flex w-full items-center gap-[2rem] flex-wrap mt-[0.7rem]">
