@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "./App.css";
+import "./index.css";
 import Header from "./components/Header";
 import Movies from "./components/Movies";
 import NavLinks from "./components/NavLinks";
